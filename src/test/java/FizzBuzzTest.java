@@ -19,7 +19,7 @@ public class FizzBuzzTest {
 
     @Test
     void should_return_buzz_if_divisible_by_5() {
-        Integer a = 30;
+        Integer a = 25;
         assertEquals("buzz", fizzBuzz.printNumber(a));
     }
 }
