@@ -22,4 +22,10 @@ public class FizzBuzzTest {
         Integer a = 25;
         assertEquals("buzz", fizzBuzz.getPrintValue(a));
     }
+
+    @Test
+    void should_return_fizzbuzz_if_divisible_by_5_and_3() {
+        Integer a = 30;
+        assertEquals("fizzbuzz", fizzBuzz.getPrintValue(a));
+    }
 }
