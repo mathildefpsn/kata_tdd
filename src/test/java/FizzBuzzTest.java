@@ -16,4 +16,10 @@ public class FizzBuzzTest {
         Integer a = 9;
         assertEquals("fizz", fizzBuzz.printNumber(a));
     }
+
+    @Test
+    void should_return_buzz_if_divisible_by_5() {
+        Integer a = 30;
+        assertEquals("buzz", fizzBuzz.printNumber(a));
+    }
 }
