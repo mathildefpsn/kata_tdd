@@ -7,9 +7,9 @@ public class StringCalculatorTest {
 
     @Test
     void should_return_sum_of_numbers() {
-        String numbers = "1,2,3";
+        String numbers = "1.2,2,3";
 
-        assertEquals("6", stringCalculator.add(numbers));
+        assertEquals("6.2", stringCalculator.add(numbers));
     }
 
 }
