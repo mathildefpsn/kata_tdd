@@ -1,14 +1,13 @@
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class StringCalculator {
 
     String add(String number) {
         if (number.isEmpty()) return "0";
-        String[] numbers = number.split(",");
-        double sum = 0;
-        for (String num: numbers) {
-            sum += Double.parseDouble(num);
-        }
-        return String.valueOf(sum);
+        List<String> numbers = Arrays.asList(number.split(","));
+        return String.valueOf(numbers.stream()
+                .mapToDouble(Double::valueOf)
+                .sum());
     }
 }
