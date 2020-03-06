@@ -1,3 +1,4 @@
+import exceptions.MissingNumberException;
 import exceptions.NumberExpectedException;
 
 import java.util.Arrays;
@@ -18,7 +19,9 @@ public class StringCalculator {
                         } else if (num.contains(badSeparator2)) {
                             throw new NumberExpectedException(num.indexOf(badSeparator2),"\\n,");
                         }
-                        return Arrays.asList(num.split("[(,)|(\\n)]"));
+                        String[] numbersArray = num.split("[(,)|(\\n)]");
+                        if (numbersArray[numbersArray.length - 1].isEmpty()) throw new MissingNumberException();
+                        return Arrays.asList(numbersArray);
                     } catch (NumberExpectedException e) {
                         throw e;
                     }

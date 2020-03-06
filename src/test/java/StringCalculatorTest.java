@@ -1,3 +1,4 @@
+import exceptions.MissingNumberException;
 import exceptions.NumberExpectedException;
 import org.junit.jupiter.api.Test;
 
@@ -45,6 +46,19 @@ public class StringCalculatorTest {
         });
 
         String expectedMessage = "Number expected but ',\\n' found at position 5.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void should_return_exception_if_last_position_empty() {
+        Exception exception = assertThrows(MissingNumberException.class, () -> {
+            String numbers = "12,3,";
+            stringCalculator.add(numbers);
+        });
+
+        String expectedMessage = "Number expected but EOF found";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
