@@ -10,4 +10,9 @@ public class LeapYearsTest {
         Integer a = 2000;
         assertEquals(true, leapYears.isLeapYear(a));
     }
+
+    void should_return_false_if_divisible_by_100_and_not_by_400() {
+        Integer a = 1700;
+        assertEquals(false, leapYears.isLeapYear(a));
+    }
 }
