@@ -14,7 +14,6 @@ public class StringCalculator {
                         String badSeparator1 = ",\n";
                         String badSeparator2 = "\n,";
                         if (num.contains(badSeparator1)) {
-                            System.out.println(num.indexOf(badSeparator1));
                             throw new NumberExpectedException(num.indexOf(badSeparator1),",\\n");
                         } else if (num.contains(badSeparator2)) {
                             throw new NumberExpectedException(num.indexOf(badSeparator2),"\\n,");
