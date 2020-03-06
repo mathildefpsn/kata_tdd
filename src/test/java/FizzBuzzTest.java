@@ -10,4 +10,10 @@ public class FizzBuzzTest {
         Integer a = 11;
         assertEquals("11", fizzBuzz.printNumber(a));
     }
+
+    @Test
+    void should_return_fizz_if_divisible_by_3() {
+        Integer a = 9;
+        assertEquals("fizz", fizzBuzz.printNumber(a));
+    }
 }
