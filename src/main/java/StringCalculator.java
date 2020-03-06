@@ -20,9 +20,9 @@ public class StringCalculator {
                             throw new NumberExpectedException(num.indexOf(badSeparator2),"\\n,");
                         }
                         String[] numbersArray = num.split("[(,)|(\\n)]");
-                        if (numbersArray[numbersArray.length - 1].isEmpty()) throw new MissingNumberException();
+                        if (String.valueOf(num.charAt(num.length() - 1)).matches("[(,)|(\\n)]")) throw new MissingNumberException();
                         return Arrays.asList(numbersArray);
-                    } catch (NumberExpectedException e) {
+                    } catch (NumberExpectedException | MissingNumberException e) {
                         throw e;
                     }
                 })
