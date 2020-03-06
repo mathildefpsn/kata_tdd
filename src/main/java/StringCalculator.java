@@ -5,9 +5,10 @@ import java.util.stream.Collectors;
 public class StringCalculator {
 
     String add(String ...number) {
+
         List<List<String>> args = Arrays.stream(number)
                 .filter(num -> !num.isEmpty())
-                .map(num -> Arrays.asList(num.split(",")))
+                .map(num -> Arrays.asList(num.split("[,\n]")))
                 .collect(Collectors.toList());
         if (args.size() == 0) return "0";
         return String.valueOf(args.stream()
