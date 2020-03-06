@@ -22,4 +22,10 @@ public class LeapYearsTest {
         Integer a = 2008;
         assertEquals(true, leapYears.isLeapYear(a));
     }
+
+    @Test
+    void should_return_false_if_not_divisible_by_4() {
+        Integer a = 2017;
+        assertEquals(false, leapYears.isLeapYear(a));
+    }
 }
