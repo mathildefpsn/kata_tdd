@@ -44,7 +44,7 @@ public class StringCalculatorTest {
             stringCalculator.add(numbers);
         });
 
-        String expectedMessage = "Number expected but ',\n' found at position 7";
+        String expectedMessage = "Number expected but ',\\n' found at position 5.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
