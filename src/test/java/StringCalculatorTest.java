@@ -29,4 +29,11 @@ public class StringCalculatorTest {
         assertEquals("8.2", stringCalculator.add(numbers));
     }
 
+    @Test
+    void should_return_sum_of_numbers_with_new_line_separator() {
+        String numbers = "1.2\n2,3";
+
+        assertEquals("6.2", stringCalculator.add(numbers));
+    }
+
 }
