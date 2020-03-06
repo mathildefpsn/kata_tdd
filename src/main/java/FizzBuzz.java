@@ -1,13 +1,9 @@
 public class FizzBuzz {
 
     public String getPrintValue(Integer number) {
-        if ((number % 3 == 0) && (number % 5 == 0)) {
-            return "fizzbuzz";
-        } else if (number % 3 == 0) {
-            return "fizz";
-        } else if (number % 5 == 0) {
-            return "buzz";
-        }
-        return number.toString();
+        String fizz = number % 3 == 0 ? "fizz" : "";
+        String buzz = number % 5 == 0 ? "buzz" : "";
+        String output = fizz.concat(buzz);
+        return !output.equals("") ? output : number.toString();
     }
 }
