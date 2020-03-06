@@ -1,8 +1,9 @@
+import exceptions.NumberExpectedException;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StringCalculatorTest {
 
@@ -35,5 +36,19 @@ public class StringCalculatorTest {
 
         assertEquals("6.2", stringCalculator.add(numbers));
     }
+
+    @Test
+    void should_return_exception_with_separators_joined() {
+        Exception exception = assertThrows(NumberExpectedException.class, () -> {
+            String numbers = "1.2\n2,\n3";
+            stringCalculator.add(numbers);
+        });
+
+        String expectedMessage = "Number expected but ',\n' found at position 7";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 
 }
