@@ -71,5 +71,17 @@ public class StringCalculatorTest {
         assertEquals("3.0", stringCalculator.add(numbers));
     }
 
+    @Test
+    void should_return_exception_if_bad_delimiter_after_changing() {
+        Exception exception = assertThrows(NumberExpectedException.class, () -> {
+            String numbers = "//|\n1|2,3";
+            stringCalculator.add(numbers);
+        });
+
+        String expectedMessage = "'|' expected but ',' found at position 3.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
 }
