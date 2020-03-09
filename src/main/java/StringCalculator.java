@@ -31,7 +31,6 @@ public class StringCalculator {
                         num = this.checkSeparator(num);
                         List<String> nums = Arrays.asList(num.split(SEPARATORS));
                         this.checkNegativeNumbers(nums);
-                        if (negativeNumbers.size() > 0) throw new NegativeNumberException(String.join(", ", negativeNumbers));
                         return nums;
                     } catch (NumberExpectedException | MissingNumberException e) {
                         throw e;
@@ -39,6 +38,8 @@ public class StringCalculator {
                 })
                 .collect(Collectors.toList());
         if (numbersLists.size() == 0) return "0";
+        if (negativeNumbers.size() > 0) throw new NegativeNumberException(String.join(", ", negativeNumbers));
+        
         return String.valueOf(numbersLists.stream()
                 .flatMap(List::stream)
                 .filter(num -> !num.isEmpty())
