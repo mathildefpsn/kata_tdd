@@ -1,10 +1,8 @@
 package exceptions;
 
-public class NumberExpectedException extends RuntimeException {
+public class NumberExpectedException extends ValueExpectedException {
 
     public NumberExpectedException(Integer position, String separator) {
-        super("Number expected but '" + separator + "' found at position " + position + ".");
+        super("Number", position, separator);
     }
-
-
 }

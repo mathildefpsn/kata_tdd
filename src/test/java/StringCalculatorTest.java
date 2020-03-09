@@ -1,3 +1,4 @@
+import exceptions.DelimiterExpectedException;
 import exceptions.MissingNumberException;
 import exceptions.NumberExpectedException;
 import org.junit.jupiter.api.Test;
@@ -73,7 +74,7 @@ public class StringCalculatorTest {
 
     @Test
     void should_return_exception_if_bad_delimiter_after_changing() {
-        Exception exception = assertThrows(NumberExpectedException.class, () -> {
+        Exception exception = assertThrows(DelimiterExpectedException.class, () -> {
             String numbers = "//|\n1|2,3";
             stringCalculator.add(numbers);
         });

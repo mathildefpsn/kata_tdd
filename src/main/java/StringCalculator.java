@@ -1,3 +1,4 @@
+import exceptions.DelimiterExpectedException;
 import exceptions.MissingNumberException;
 import exceptions.NumberExpectedException;
 
@@ -13,6 +14,7 @@ public class StringCalculator {
     private static final String BAD_SEPARATOR_2_TO_PRINT = "\\n,";
     private static final String INITIAL_SEPARATORS = "[(,)|(\\n)]";
     private static final String CHANGING_SEPARATOR = "//";
+    private static final String NUMBERS_REGEX = "[0-9.]*";
 
     private String SEPARATORS = "[(,)|(\\n)]";
 
@@ -45,7 +47,11 @@ public class StringCalculator {
         if (numbers.startsWith(CHANGING_SEPARATOR)) {
             int changingSeparatorLength = CHANGING_SEPARATOR.length();
             SEPARATORS = numbers.substring(changingSeparatorLength, changingSeparatorLength + 1);
-            return numbers.substring(3 + SEPARATORS.length());
+            String sNumbers = numbers.substring(3 + SEPARATORS.length());
+            for (int i = 0; i < sNumbers.length() ; i++) {
+                if (!String.valueOf(sNumbers.charAt(i)).matches(NUMBERS_REGEX) && !String.valueOf(sNumbers.charAt(i)).contains(SEPARATORS)) throw new DelimiterExpectedException(SEPARATORS, i, String.valueOf(sNumbers.charAt(i)));
+            }
+            return sNumbers;
         } else if (numbers.contains(BAD_SEPARATOR_1)) {
             throw new NumberExpectedException(numbers.indexOf(BAD_SEPARATOR_1), BAD_SEPARATOR_1_TO_PRINT);
         } else if (numbers.contains(BAD_SEPARATOR_2)) {
