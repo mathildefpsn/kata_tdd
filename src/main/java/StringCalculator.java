@@ -1,7 +1,9 @@
 import exceptions.DelimiterExpectedException;
 import exceptions.MissingNumberException;
+import exceptions.NegativeNumberException;
 import exceptions.NumberExpectedException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,8 +17,10 @@ public class StringCalculator {
     private static final String INITIAL_SEPARATORS = "[(,)|(\\n)]";
     private static final String CHANGING_SEPARATOR = "//";
     private static final String NUMBERS_REGEX = "[0-9.]*";
+    private static final String NEGATIVE_CHAR = "-";
 
     private String SEPARATORS = "[(,)|(\\n)]";
+    private List<String> negativeNumbers = new ArrayList<>();
 
     String add(String ...number) {
         this.init();
@@ -25,7 +29,10 @@ public class StringCalculator {
                 .map(num -> {
                     try {
                         num = this.checkSeparator(num);
-                        return Arrays.asList(num.split(SEPARATORS));
+                        List<String> nums = Arrays.asList(num.split(SEPARATORS));
+                        this.checkNegativeNumbers(nums);
+                        if (negativeNumbers.size() > 0) throw new NegativeNumberException(String.join(", ", negativeNumbers));
+                        return nums;
                     } catch (NumberExpectedException | MissingNumberException e) {
                         throw e;
                     }
@@ -41,6 +48,7 @@ public class StringCalculator {
 
     private void init() {
         if (!SEPARATORS.equals(INITIAL_SEPARATORS)) SEPARATORS = INITIAL_SEPARATORS;
+        negativeNumbers = new ArrayList<>();
     }
 
     private String checkSeparator(String numbers) {
@@ -60,5 +68,12 @@ public class StringCalculator {
             throw new MissingNumberException();
         }
         return numbers;
+    }
+
+    private void checkNegativeNumbers(List<String> lNumbers) {
+        for (String number: lNumbers) {
+            if (number.contains(NEGATIVE_CHAR)) negativeNumbers.add(number.substring(number.indexOf(NEGATIVE_CHAR)));
+
+        }
     }
 }
