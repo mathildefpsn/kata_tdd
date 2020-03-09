@@ -1,5 +1,6 @@
 import exceptions.DelimiterExpectedException;
 import exceptions.MissingNumberException;
+import exceptions.NegativeNumberException;
 import exceptions.NumberExpectedException;
 import org.junit.jupiter.api.Test;
 
@@ -80,6 +81,19 @@ public class StringCalculatorTest {
         });
 
         String expectedMessage = "'|' expected but ',' found at position 3.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void should_return_exception_if_negative_number() {
+        Exception exception = assertThrows(NegativeNumberException.class, () -> {
+            String numbers = "-1,2";
+            stringCalculator.add(numbers);
+        });
+
+        String expectedMessage = "Negative not allowed : -1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
