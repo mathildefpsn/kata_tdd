@@ -11,14 +11,21 @@ public class StringCalculator {
     private static final String BAD_SEPARATOR_2 = "\n,";
     private static final String BAD_SEPARATOR_1_TO_PRINT = ",\\n";
     private static final String BAD_SEPARATOR_2_TO_PRINT = "\\n,";
-    private static final String SEPARATORS = "[(,)|(\\n)]";
+    private String SEPARATORS = "[(,)|(\\n)]";
+    private static final String INITIAL_SEPARATORS = "[(,)|(\\n)]";
 
     String add(String ...number) {
         List<List<String>> numbersLists = Arrays.stream(number)
                 .filter(num -> !num.isEmpty())
                 .map(num -> {
                     try {
-                        this.checkSeparator(num);
+                        if (!SEPARATORS.equals(INITIAL_SEPARATORS)) SEPARATORS = INITIAL_SEPARATORS;
+                        if (num.startsWith("//")) {
+                            SEPARATORS = num.substring(2, 3);
+                            num = num.substring(3 + SEPARATORS.length());
+                        } else {
+                            this.checkSeparator(num);
+                        }
                         return Arrays.asList(num.split(SEPARATORS));
                     } catch (NumberExpectedException | MissingNumberException e) {
                         throw e;

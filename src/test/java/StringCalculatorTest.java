@@ -68,7 +68,7 @@ public class StringCalculatorTest {
     void should_return_sum_if_change_delimiter() {
         String numbers = "//;\n1;2";
 
-        assertEquals("3", stringCalculator.add(numbers));
+        assertEquals("3.0", stringCalculator.add(numbers));
     }
 
 
