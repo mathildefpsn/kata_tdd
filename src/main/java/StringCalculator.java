@@ -11,21 +11,18 @@ public class StringCalculator {
     private static final String BAD_SEPARATOR_2 = "\n,";
     private static final String BAD_SEPARATOR_1_TO_PRINT = ",\\n";
     private static final String BAD_SEPARATOR_2_TO_PRINT = "\\n,";
-    private String SEPARATORS = "[(,)|(\\n)]";
     private static final String INITIAL_SEPARATORS = "[(,)|(\\n)]";
+    private static final String CHANGING_SEPARATOR = "//";
+
+    private String SEPARATORS = "[(,)|(\\n)]";
 
     String add(String ...number) {
+        this.init();
         List<List<String>> numbersLists = Arrays.stream(number)
                 .filter(num -> !num.isEmpty())
                 .map(num -> {
                     try {
-                        if (!SEPARATORS.equals(INITIAL_SEPARATORS)) SEPARATORS = INITIAL_SEPARATORS;
-                        if (num.startsWith("//")) {
-                            SEPARATORS = num.substring(2, 3);
-                            num = num.substring(3 + SEPARATORS.length());
-                        } else {
-                            this.checkSeparator(num);
-                        }
+                        num = this.checkSeparator(num);
                         return Arrays.asList(num.split(SEPARATORS));
                     } catch (NumberExpectedException | MissingNumberException e) {
                         throw e;
@@ -40,13 +37,22 @@ public class StringCalculator {
                 .sum());
     }
 
-    private void checkSeparator(String numbers) {
-        if (numbers.contains(BAD_SEPARATOR_1)) {
+    private void init() {
+        if (!SEPARATORS.equals(INITIAL_SEPARATORS)) SEPARATORS = INITIAL_SEPARATORS;
+    }
+
+    private String checkSeparator(String numbers) {
+        if (numbers.startsWith(CHANGING_SEPARATOR)) {
+            int changingSeparatorLength = CHANGING_SEPARATOR.length();
+            SEPARATORS = numbers.substring(changingSeparatorLength, changingSeparatorLength + 1);
+            return numbers.substring(3 + SEPARATORS.length());
+        } else if (numbers.contains(BAD_SEPARATOR_1)) {
             throw new NumberExpectedException(numbers.indexOf(BAD_SEPARATOR_1), BAD_SEPARATOR_1_TO_PRINT);
         } else if (numbers.contains(BAD_SEPARATOR_2)) {
             throw new NumberExpectedException(numbers.indexOf(BAD_SEPARATOR_2), BAD_SEPARATOR_2_TO_PRINT);
         } else if (String.valueOf(numbers.charAt(numbers.length() - 1)).matches(SEPARATORS)) {
             throw new MissingNumberException();
         }
+        return numbers;
     }
 }
