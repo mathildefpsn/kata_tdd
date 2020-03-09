@@ -64,5 +64,12 @@ public class StringCalculatorTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    void should_return_sum_if_change_delimiter() {
+        String numbers = "//;\n1;2";
+
+        assertEquals("3", stringCalculator.add(numbers));
+    }
+
 
 }
