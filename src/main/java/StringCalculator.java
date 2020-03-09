@@ -39,7 +39,7 @@ public class StringCalculator {
                 .collect(Collectors.toList());
         if (numbersLists.size() == 0) return "0";
         if (negativeNumbers.size() > 0) throw new NegativeNumberException(String.join(", ", negativeNumbers));
-        
+
         return String.valueOf(numbersLists.stream()
                 .flatMap(List::stream)
                 .filter(num -> !num.isEmpty())

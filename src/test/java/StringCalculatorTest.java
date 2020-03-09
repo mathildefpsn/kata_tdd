@@ -99,4 +99,17 @@ public class StringCalculatorTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    void should_return_all_exceptions_if_multiple_errors() {
+        Exception exception = assertThrows(NegativeNumberException.class, () -> {
+            String numbers = "-1,,2";
+            stringCalculator.add(numbers);
+        });
+
+        String expectedMessage = "Negative not allowed : -1\\nNumber expected but ',' found at position 3.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 }
